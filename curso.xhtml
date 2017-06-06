@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/_template.xhtml">
+	<ui:define name="conteudo">
+		<h:form>
+			<h:messages />
+			<h:inputHidden value="#{cursoBean.curso.idCurso}" />
+			<fieldset>
+				<LEGEND>Cadastro de Curso</LEGEND>
+				<p:panelGrid columns="2" styleClass="ui-noborder" style="width: 89%">
+					<p:outputLabel id="lblNome" for="lblNome" value="Nome:" style="float: right"/>
+					<p:inputText id="txtNome" label="lblNome" required="true"
+						requiredMessage="Informe o nome" value="#{cursoBean.curso.nome}"
+						styleClass="txtNome" style="width:70%"/>
+				</p:panelGrid>
+			</fieldset>
+			<br />
+			<fieldset>
+				<LEGEND> </LEGEND>
+			<p:panelGrid columns="3" styleClass="ui-noborder">
+				<p:commandButton value="Novo" action="#{cursoBean.novo}"
+					immediate="true" />
+				<p:commandButton value="Salvar" action="#{cursoBean.salvar}" />
+				<p:commandButton value="Excluir" action="#{cursoBean.excluir}" />
+			</p:panelGrid>
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

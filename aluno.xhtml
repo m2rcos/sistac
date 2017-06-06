@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/_template.xhtml">
+	<ui:define name="conteudo">
+		<h:form><font></font>
+			<p:messages />
+			<h:inputHidden value="#{alunoBean.aluno.idAluno}" />
+			<fieldset>
+				<LEGEND><strong><em>Cadastro de Aluno</em></strong></LEGEND>
+				<p:panelGrid id="painelAluno" styleClass="ui-noborder" columns="2" style="width: 60%">
+					<p:outputLabel id="lblMatricula" for="lblMatricula"
+						value="Matricula:" style="float: right" />
+					<p:inputText id="txtMatricula" label="lblMatricila"
+						value="#{alunoBean.aluno.matricula}" required="true"
+						maxlength="100" requiredMessage="Informe a Matricula"
+						validatorMessage="A matricula ultrapassou 100 caracteres"
+						styleClass="txtMatricula" style="width:30%">
+						<f:validateLength maximum="100" />
+					</p:inputText>
+					<p:outputLabel id="lblNome" for="lblNome" value="Nome:" style="float: right"/>
+					<p:inputText id="txtNome" label="lblNome"
+						value="#{alunoBean.aluno.nome}" maxlength="100" required="true"
+						requiredMessage="Informe o Nome"
+						validatorMessage="O nome ultrapassou 100 caracteres"
+						styleClass="txtNome" style="width:150%">
+						<f:validateLength maximum="100" />
+					</p:inputText>
+					<p:outputLabel id="lblSexo" for="lblSexo" value="Sexo:" style="float: right" />
+					<p:selectOneRadio value="#{alunoBean.sexo}" required="true"
+						requiredMessage="Selecione o Sexo">
+						<f:selectItems value="#{alunoBean.constantes.sexos}" var="s"
+							itemLabel="#{s.descricao}" itemValue="#{s.tipo}" />
+					</p:selectOneRadio>
+					<p:outputLabel id="lblDataNascimento" for="lblDataNascimento"
+						value="Data Nascimento:" style="float: right"/>
+					<p:inputText id="txtDataNascimento" label="lblDataNascimento"
+						value="#{alunoBean.aluno.dataNascimento.time}" required="true"
+						requiredMessage="Informe a Data de Nascimento(dd//MM/yyyy) "
+						styleClass="txtDataNascimento" style="width:30%">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputText>
+					<p:outputLabel id="lblCPF" for="lblCPF" value="CPF:" style="float: right"/>
+					<p:inputText id="txtCPF" lable="lblCPF"
+						value="#{alunoBean.aluno.cpf}" maxlength="20" required="true"
+						requiredMessage="Informeo CPF"
+						validatorMessage="O CPF ultrapassou 20 caracteres"
+						styleClass="txtCPF">
+						<f:validateLength maximum="20" />
+					</p:inputText>
+				</p:panelGrid>
+			</fieldset>
+			<br />
+			<fieldset>
+				<LEGEND><strong><em>Orientador do Aluno</em></strong></LEGEND>
+				<p:panelGrid columns="2" styleClass="ui-noborder" style="width: 54.5%">
+					<p:outputLabel id="lblOrientador" for="lblOrientador"
+						value="Selecione o Orientador:" style="float: right"/>
+					<h:selectOneMenu id="orientador" 
+						value="#{alunoBean.idOrientadorSelecionado}"
+						styleClass="slOrientador" required="true"
+						requiredMessage="Escolha um Orientador">
+						<f:selectItems value="#{alunoBean.orientadores}" var="orientador"
+							itemLabel="#{orientador.nome}"
+							itemValue="#{orientador.idOrientador}" />
+					</h:selectOneMenu>
+					<p:commandButton id="btnGravarOriendaor" style="float: right" value="Gravar Orientador"
+						action="#{alunoBean.gravarOrientador}">
+						<f:ajax execute="orientador" render="txtOrientdaorSelecionado" />
+					</p:commandButton>
+					<h:commandLink action="#{alunoBean.novoOrientador}"
+						immediate="true">
+						<i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 30px; color: green"></i>
+						
+					</h:commandLink>
+					<p:outputLabel id="lblOrientadorSelecionado" style="float: right"
+						for="lblOrientadorSelecionado" value="Orientador Selecionado:" />
+					<h:outputText id="txtOrientdaorSelecionado"
+						value="#{alunoBean.nomeOrientadorSelecionado}"
+						style="font-family: arial;font-weight: bold;" />
+				</p:panelGrid>
+			</fieldset>
+			<br />
+			<fieldset>
+			<LEGEND> </LEGEND>
+			<p:panelGrid id="panelBotao" columns="3" styleClass="ui-noborder" style="float: center">
+				<p:commandButton id="btnNovo" value="Novo" styleClass="btnNovo"
+					action="#{alunoBean.novo}" immediate="true">
+				</p:commandButton>
+				<p:commandButton id="btnSalvar" value="Salvar"
+					styleClass="btnSalvar" action="#{alunoBean.gravarAluno}" />
+				<p:commandButton id="btnExcluir" value="Excluir"
+					styleClass="btnExcluir" action="#{alunoBean.excluirAluno}" />
+			</p:panelGrid>
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

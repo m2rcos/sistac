@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/_template.xhtml">
+	<ui:define name="conteudo">
+		<h:form>
+			<p:messages />
+			<p:dataTable value="#{cursoBean.lista}" var="curso" rules="rows" cellpadding="5"   paginatorPosition="bottom" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15">
+				<f:facet name="caption">
+     	A listagem a seguir exibe a relação de todos os cursos do sistema.
+     	</f:facet>
+				<f:facet name="header">Listagem de Cursos</f:facet>
+				<f:facet name="footer">Final da Listagem de Cursos</f:facet>
+				<p:column>
+					<f:facet name="header">Nome</f:facet>
+     	#{curso.nome}
+     	</p:column >
+				<p:column style="width: 15%">
+				<f:facet name="header">Alterar/Excluir</f:facet>
+					<h:commandLink action="#{cursoBean.editar}">
+						<i class="fa fa-pencil-square-o fa-2x" aria-hidden="true" style="color:#f5c43f"></i>
+						<f:setPropertyActionListener target="#{cursoBean.curso}"
+							value="#{curso}" />
+					</h:commandLink>
+					
+					<h:commandLink action="#{cursoBean.excluir}"
+						onclick="if(!confirm('Confirma a exclusão do curso: #{curso.nome}?')) return false;">
+						<i class="fa fa-trash fa-2x" aria-hidden="true" style="font-size: 30px; color: #af0606;"></i>
+						<f:setPropertyActionListener target="#{cursoBean.curso}"
+							value="#{curso}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

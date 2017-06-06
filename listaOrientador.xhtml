@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/_template.xhtml">
+	<ui:define name="conteudo">
+		<h:form>
+			<p:messages />
+			<p:dataTable value="#{orientadorBean.lista}" var="orientador" rules="rows" cellpadding="5"    paginatorPosition="bottom" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15">
+				<f:facet name="caption">
+     	A listagem a seguir exibe a relação de todos os orientadores do sistema.
+     	</f:facet>
+				<f:facet name="header">Listagem de Orientadores</f:facet>
+				<f:facet name="footer">Final da Listagem de Orientadores</f:facet>
+				<p:column>
+					<f:facet name="header">Nome</f:facet>
+     	#{orientador.nome}
+     	</p:column>
+				<p:column>
+					<f:facet name="header">Titulação</f:facet>
+     	#{orientador.titulacao}
+     	</p:column>
+				<p:column>
+					<f:facet name="header">Instituição</f:facet>
+     	#{orientador.instituicao}
+     	</p:column>
+				<p:column>
+				<f:facet name="header">Alterar/Excluir</f:facet>
+					<h:commandLink action="#{orientadorBean.editar}">
+						<h:graphicImage library="img" name="editar.png" style="border:0" />
+						<f:setPropertyActionListener target="#{orientadorBean.orientador}"
+							value="#{orientador}" />
+					</h:commandLink>
+					<h:commandLink action="#{orientadorBean.excluir}"
+						onclick="if(!confirm('Confirma a exclusão do orientador: #{orientador.nome}?')) return false;">
+						<h:graphicImage library="img" name="excluir.png" style="border:0" />
+						<f:setPropertyActionListener target="#{orientadorBean.orientador}"
+							value="#{orientador}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

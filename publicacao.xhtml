@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/_template.xhtml">
+	<ui:define name="conteudo">
+		<h:form>
+			<h:inputHidden value="#{orientadorBean.orientador.idOrientador}" />
+			<p:messages />
+			<fieldset>
+				<LEGEND style="color: #3c763d">Cadastro de Publicação</LEGEND>
+				<p:panelGrid columns="2" styleClass="ui-noborder" style="width: 51%">
+					<p:outputLabel id="lblTitulo" for="lblTitulo" value="Titulo:"
+						styleClass="lblTitulo" style="float: right" />
+					<p:inputText id="txtTitulo" label="lblTitulo"
+						value="#{publicacaoBean.publicacao.titulo}" required="true"
+						requiredMessage="Informe o Titulo da Publicação"
+						styleClass="txtTitulo" style="width:200%"></p:inputText>
+
+					<p:outputLabel id="lblTipo" for="lblTipo"
+						value="Tipo de Publicação" styleClass="lblTipo"
+						style="float: right" />
+					<h:selectOneMenu id="slTipo" value="#{publicacaoBean.tipo}"
+						styleClass="slTipo" required="true"
+						requiredMessage="Escolha o Tipo de Publicação">
+						<f:selectItems value="#{publicacaoBean.constantes.tipoPublicacao}"
+							var="tipoPublicacao" itemLabel="#{tipoPublicacao.nome}"
+							itemValue="#{tipoPublicacao.nome}" />
+					</h:selectOneMenu>
+
+					<p:outputLabel id="lblDataPublicacao" for="lblDataPublicacao"
+						value="Data Publicação:" styleClass="lblDataPublicacao"
+						style="float: right" />
+					<p:inputText id="txtDataPublicacao" label="lblDataPublicacao"
+						value="#{publicacaoBean.publicacao.dataPublicacao.time}"
+						required="true"
+						requiredMessage="Informe a Data de Publicação(dd//MM/yyyy)"
+						styleClass="txtDataPublicacao" style="width:40%">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputText>
+				</p:panelGrid>
+				<BR />
+				<fieldset>
+					<LEGEND>Orientador</LEGEND>
+					<p:panelGrid columns="2" styleClass="ui-noborder"
+						style="width: 53.5%">
+						<p:outputLabel id="lblOrientador" for="lblOrientador"
+							value="Selecione o Orientador:" styleClass="lblOrientador"
+							style="float: right" />
+						<h:selectOneMenu id="orientador"
+							value="#{publicacaoBean.idOrientadorSelecionado}"
+							styleClass="slOrientador" required="true"
+							requiredMessage="Escolha um Orientador">
+							<f:selectItems value="#{publicacaoBean.orientadores}"
+								var="orientador" itemLabel="#{orientador.nome}"
+								itemValue="#{orientador.idOrientador}" />
+						</h:selectOneMenu>
+						<p:commandButton id="btnGravarOriendaor" value="Gravar Orientador"
+							action="#{publicacaoBean.gravarOrientador}"
+							styleClass="btnGravarOriendaor" style="float: right">
+							<f:ajax execute="orientador" render="txtOrientdaorSelecionado" />
+						</p:commandButton>
+
+						<h:commandLink action="#{publicacaoBean.novoOrientador}"
+							title="Clique Aqui para Cadastrar um novo Orientador"
+							immediate="true" styleClass="linkNovoOrientador">
+							<p:graphicImage library="img" name="novo.png"></p:graphicImage>
+							<f:ajax execute="orientador" />
+						</h:commandLink>
+
+						<h:outputLabel id="lblOrientadorSelecionado"
+							for="lblOrientadorSelecionado" value="Orientador Selecionado:"
+							style="float: right" />
+						<h:outputText id="txtOrientdaorSelecionado"
+							value="#{publicacaoBean.nomeOrientadorSelecionado}"
+							style="font-family: arial;font-weight: bold;" />
+
+					</p:panelGrid>
+				</fieldset>
+
+				<BR />
+				<fieldset>
+					<LEGEND>Aluno</LEGEND>
+					<p:panelGrid columns="2" styleClass="ui-noborder"
+						style="width: 56.3%">
+						<h:outputLabel id="lblAluno" for="lblAluno" value="Selecione o Aluno:" styleClass="lblAluno" style="float: right" />
+						<h:selectOneMenu id="slAluno" value="#{publicacaoBean.idAluno}"
+							styleClass="slAluno" required="true"
+							requiredMessage="Escolha um Aluno">
+							<f:selectItems value="#{publicacaoBean.alunos}" var="aluno"
+								itemLabel="#{aluno.nome}" itemValue="#{aluno.idAluno}" />
+						</h:selectOneMenu>
+						<p:commandButton id="btnGravarAluno" value="Gravar Aluno"
+							action="#{publicacaoBean.gravarAluno}"
+							styleClass="btnGravarAluno" style="float: right">
+							<f:ajax execute="slAluno" render="listaAlunoSelecionados" />
+						</p:commandButton>
+
+						<h:commandLink action="#{publicacaoBean.novoAluno}"
+							immediate="true" styleClass="linkNovoAluno">
+							<h:graphicImage library="img" name="novo.png"></h:graphicImage>
+							<f:ajax execute="slAluno" />
+						</h:commandLink>
+
+						<h:dataTable id="listaAlunoSelecionados"
+							value="#{publicacaoBean.alunosSelecionados}" var="alunos">
+							<h:column>
+								<h:outputLabel value="#{alunos.nome}" />
+							</h:column>
+						</h:dataTable>
+
+					</p:panelGrid>
+				</fieldset>
+
+				<br />
+				<fieldset>
+					<LEGEND> </LEGEND>
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+						<p:commandButton value="Novo" action="#{publicacaoBean.novo}"
+							styleClass="btnNovo" immediate="true" />
+						<p:commandButton value="Salvar" action="#{publicacaoBean.salvar}"
+							styleClass="btnSalvar" />
+						<p:commandButton value="Excluir"
+							action="#{publicacaoBean.excluir}" styleClass="btnExcluir" />
+					</p:panelGrid>
+				</fieldset>
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

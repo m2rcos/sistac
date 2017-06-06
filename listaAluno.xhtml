@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/_template.xhtml">
+	<ui:define name="conteudo">
+		<h:form>
+			<font></font>
+			<p:messages />
+			<p:dataTable value="#{alunoBean.listaAlunos}" var="aluno"
+				rules="rows" cellpadding="5" paginatorPosition="bottom" rows="5"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="caption">
+					<font></font>
+     	A listagem a seguir exibe a relação de todos os alunos do sistema.
+     	</f:facet>
+				<f:facet name="header">Listagem de Alunos</f:facet>
+				<f:facet name="footer">Final da Listagem de Alunos</f:facet>
+				<p:column headerText="matricula" sortBy="#{aluno.matricula}" style="width: 15%">
+					<f:facet name="header">Matricula</f:facet>
+     	#{aluno.matricula}
+     	</p:column>
+				<p:column headerText="nome" sortBy="#{aluno.nome}">
+					<f:facet name="header">Nome</f:facet>
+     	#{aluno.nome}
+     	</p:column>
+				<p:column style="width: 15%">
+					<f:facet name="header">Data Nascimento</f:facet>
+					<h:outputText value="#{aluno.dataNascimento.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+				<p:column style="width: 15%">
+					<f:facet name="header">Alterar/Excluir</f:facet>
+					<h:commandLink action="#{alunoBean.editar}">
+						<h:graphicImage library="img" name="editar.png" style="border:0" />
+						<f:setPropertyActionListener target="#{alunoBean.aluno}"
+							value="#{aluno}" />
+					</h:commandLink>
+
+					<h:commandLink action="#{alunoBean.excluirAluno}"
+						onclick="if(!confirm('Confirma a exclusão do aluno #{aluno.nome}?')) return false;">
+						<h:graphicImage library="img" name="excluir.png" style="border:0" />
+						<f:setPropertyActionListener target="#{alunoBean.aluno}"
+							value="#{aluno}" />
+					</h:commandLink>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>SISTAC</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="./resources/css/estilo.css" rel="stylesheet"
+		type="text/css" media="screen" />
+	<link href="./resources/css/bootstrap.min.css" rel="stylesheet"
+		type="text/css" media="screen" />
+	<link href="./resources/css/font-awesome.min.css" rel="stylesheet"
+		type="text/css" media="screen" />
+	<link href="./resources/css/painel.css" rel="stylesheet"
+		type="text/css" media="screen" />
+
+
+</h:head>
+<h:body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="http://www.febac.edu.br/"
+				target="_blank"><img src="./resources/img/febac.png"
+				style="height: 200%; margin: -10px" class=" "></img></a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="http://www.febac.com.br/" target="_blank">Febac</a></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><i class="fa fa-user-circle"></i> <span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#modalLogin" data-toggle="modal">Efetuar
+								Login</a></li>
+					</ul></li>
+			</ul>
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container-fluid --> </nav>
+	<!--modal -->
+	<div class="modal fade" id="modalLogin">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!--Login-->
+					<div class="container-fluid">
+						<div class="row-fluid">
+							<div class="col-xs-12">
+								<div class="form-login">
+									<h2 class="text-center">Efetue Login</h2>
+									<form method="post" action="publicacao.xhtml">
+										<label class="sr-only" for="usuario">Usuário:</label> <input
+											type="text" id="usuario" name="usuario"
+											class="form-control input-lg" placeholder="Usuário"
+											required="required" /> <label class="sr-only" for="senha">Senha:</label>
+										<input type="password" id="senha" name="senha"
+											class="form-control input-lg" placeholder="Senha"
+											required="required" />
+										<div class="checkbox">
+											<label> <input type="checkbox" value="s" /> Lembre-me
+											</label>
+										</div>
+										<button type="submit" class="btn btn-primary btn-lg btn-block">Acessar</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--//Login-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/modal -->
+
+
+
+
+	<footer class="main-footer  ">
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<strong>Copyright &copy; 2017 <a href="">Equipe:</a>.
+			</strong> Todos os Direitos Reservados.
+		</div>
+	</div>
+	</footer>
+
+	<script src="./resources/js/jquery-3.1.1.min.js"></script>
+	<script src="./resources/js/bootstrap.min.js"></script>
+	<script src="./resources/js/main.js"></script>
+</h:body>
+</html>
